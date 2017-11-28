@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>多组件使用公共组件</title>
+</head>
+<body>
+    <div id="app"></div>
+  
+    <script src="../../vue.js"></script>
+    <script>
+        var heros=[{id:'1',name:'李白'},{id:'2',name:'韩信'},{id:'3',name:'后裔'},{id:'4',name:'娜可露露'}]
+    //    使用子组件设置增删改查功能
+    // 增加英雄
+    var addH = {
+        template:`
+        <div>
+                ID:<input type="text" v-model="addHId">
+                Hero:<input type="text" v-model="addHName">
+                <button @click="addHero">增加英雄</button>
+        </div>
+        `,
+        methods:{
+             addHero: function(){
+                heros.push({
+                    id:this.addHId,
+                    name:this.addHName
+                })
+             }
+        },
+        data:function(){
+            return {
+                addHId:'',
+                addHName:''
+            }
+        }
+    }
+    //    删除英雄
+    var delH = {
+        template:`
+        <div>
+                ID:<input type="text" v-model="delHId">
+                <button @click="delHero(delHId)">删除英雄</button>
+        </div>
+        `,
+        methods:{
+            delHero: function(id){
+                // 查找英雄
+                var index = heros.findIndex(function(ele){
+                   
+                    ele.id == id
+                    console.log(ele);
+                })
+                if(index == -1 )
+                console.log('没有找到该英雄')
+             }
+        },
+        data:function(){
+            return {
+                delHId:''
+            }
+        }
+    }
+       
+       
+       
+        // 父组件
+        var App = {
+            components:{
+                'add-hero':addH,
+                'del-hero':delH
+            },
+            template:`
+            <div>
+                <ul>
+                    <li v-for="(item,index) in heros" :key="index">{{item.id}} {{item.name}}</li>
+                </ul>
+                <add-hero></add-hero>
+                <del-hero></del-hero>
+            </div>
+           
+            `,
+            data:function(){
+                return {heros:heros}; 
+            }
+        }
+        // 启动
+        new Vue({
+            el:'#app',
+            render:c=>c(App)
+        })
+
+    </script>
+</body>
+</html>
