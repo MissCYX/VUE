@@ -4,9 +4,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>通信</title>
 </head>
 <body>
-    
+    <div id="app"></div>
+    <script src="../vue.js"></script>
+    <script>
+        // 通信
+        var vm = new Vue();
+
+
+        // 子组件
+        var chil = {
+            template:`
+                <div>
+                    i am child
+                    <button @click="call">呼叫父组件</button>
+                </div>
+            `,
+            methods:{
+                call:function(){
+                    // 通信：在子组件里emit，父组件中监听
+                    vm.$emit('123','a',1)
+                }
+            }
+        }
+
+
+        // 父组件
+        var fa = {
+            template:`
+                <div>
+                    i am father
+                    <chil-vue></chil-vue>    
+                </div>
+            `,
+            components:{
+                'chil-vue':chil
+            },
+            // 监听
+           created(){
+               console.log('父组件被创建了')
+            //    监听子组件
+            vm.$on('123',function(str,num){
+                    console.log(str);
+                    console.log(num);
+                    console.log('收到孩子的求救了');
+            })
+           }
+        }
+        new Vue({
+            el:'#app',
+            render:c=>c(fa)
+        })
+    </script>
 </body>
 </html>

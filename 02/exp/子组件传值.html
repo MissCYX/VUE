@@ -4,13 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>多组件使用公共组件</title>
+    <title>父组件使用子组件练习</title>
 </head>
 <body>
     <div id="app"></div>
   
     <script src="../../vue.js"></script>
     <script>
+
+        // 有问题的，heros列表
+
+
+
         var heros=[{id:'1',name:'李白'},{id:'2',name:'韩信'},{id:'3',name:'后裔'},{id:'4',name:'娜可露露'}]
     //    使用子组件设置增删改查功能
     // 增加英雄
@@ -48,10 +53,11 @@
         methods:{
             delHero: function(id){
                 // 查找英雄
-                var index = heros.findIndex(function(ele){
-                   
-                    ele.id == id
+                console.log(heros);
+                var index = heros.findIndex(function(ele){ 
                     console.log(ele);
+                    ele.id == id
+                   
                 })
                 if(index == -1 )
                 console.log('没有找到该英雄')
@@ -63,9 +69,6 @@
             }
         }
     }
-       
-       
-       
         // 父组件
         var App = {
             components:{
