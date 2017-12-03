@@ -46,10 +46,7 @@ module.exports = {
         {
             test:/\.vue$/,
             loader:'vue-loader',//依赖vue-template-compiler
-        }
-
-
-        ]
+        }]
     },
     //插件
     plugins:[
