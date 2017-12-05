@@ -1,7 +1,7 @@
 <template>
     <div>
             <mt-header title="黑马前端34"></mt-header>
-            <router-view></router-view>
+            <router-view class="tmpl"></router-view>
             <mt-tabbar :selected.sync="selected">
             <mt-tab-item id="home">
                 <img slot="icon" src="../static/img/index.png">
@@ -32,5 +32,8 @@
     }
 </script>
 <style scoped>
-    
+    .mint-tabbar{
+        position: fixed;
+        bottom:0; 
+    }
 </style>
